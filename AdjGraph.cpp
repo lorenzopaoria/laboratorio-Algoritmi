@@ -75,23 +75,6 @@ public:
         return this;
     }
 
-    /*
-
-    //a b c
-
-    nodeNum = 7
-
-      a b c
-    a 0 1 3
-    b 1 0 1
-    c 2 3 0
-
-    se vogliamo rimuovere il nodo b:
-        1. eliminare b dall'array keyMap
-        2. shiftare tutti gli elementi successivi verso sinistra
-        3. eliminare tutti gli archi partenti o uscenti da b
-        4. shiftare tutte le righe e le colonne successive verso sinistra
-    */
     AdjGraph<H, T>* removeNode(H const& key){
 
         int index = findIndex(key);
