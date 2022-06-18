@@ -35,6 +35,21 @@ public:
             Heapify(min);
         }
     }
+    
+     void reverseHeapify(int i){
+        int l = left(i);
+        int r = right(i);
+        int min = i;
+
+        if(l <= heapsize && vett[l] > vett[min])
+            min = l;
+        if(r <= heapsize && vett[r] > vett[min])
+            min = r;
+        if(min != i){
+            swap(vett[min], vett[i]);
+            Heapify(min);
+        }
+    }
 
     void enqueue(H x){
         heapsize++;
@@ -48,18 +63,20 @@ public:
     }
 
     void modifyKey(int index, H newVal){
-        for(int i=0;i<heapsize;i++){
-            if(i==index){
-                vett[i]=newVal;
-                Heapify(vett[i]);
-            }
-        }
+        if(newVal>vett[i]){
+            vett[i]=newVal;
+            Heapify(vett[i]);
+        }else if(newVal<vett[i]){
+            vett[i]=newVal;
+            reverseHeapify(vett[i]);
+        }else return 0;
+       
     }
 
     bool isHeap(Heap* vett){
         
-        for(int i=0;i<heapsize;i++){
-            if(vett->parent(i)<vett->left(i)&& vett->parent(i)<vett->right(i)) return true;
+        for(int i=0;i<heapsize/2;i++){
+            if(vett[i]<vett[i*2] && vett[i]<vett[(i/2)|1]) return true;
         }
         return false;
     }
