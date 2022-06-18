@@ -62,15 +62,14 @@ public:
         }
     }
 
-    void modifyKey(int index, H newVal){
+    void modifyKey(int i, H newVal){
         if(newVal>vett[i]){
             vett[i]=newVal;
             Heapify(vett[i]);
         }else if(newVal<vett[i]){
             vett[i]=newVal;
             reverseHeapify(vett[i]);
-        }else return 0;
-       
+        }else vett[i]=newVal;  
     }
 
     bool isHeap(Heap* vett){
