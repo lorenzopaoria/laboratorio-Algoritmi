@@ -36,18 +36,13 @@ public:
         }
     }
     
-     void reverseHeapify(int i){
-        int l = left(i);
-        int r = right(i);
+     void recursiveHeapify(int i){
+        int p= parent(i);
         int min = i;
-
-        if(l <= heapsize && vett[l] > vett[min])
-            min = l;
-        if(r <= heapsize && vett[r] > vett[min])
-            min = r;
-        if(min != i){
-            swap(vett[min], vett[i]);
-            Heapify(min);
+  
+        if(i>1 && vett[min]<vett[p]){
+          swap(vett[min],vett[p]);
+          recursiveHeapify(vett[p]);
         }
     }
 
@@ -68,16 +63,19 @@ public:
             Heapify(vett[i]);
         }else if(newVal<vett[i]){
             vett[i]=newVal;
-            reverseHeapify(vett[i]);
+            recursiveHeapify(vett[i]);
         }else vett[i]=newVal;  
     }
 
-    bool isHeap(Heap* vett){
-        
-        for(int i=0;i<heapsize/2;i++){
-            if(vett[i]<vett[i*2] && vett[i]<vett[(i/2)|1]) return true;
+    bool isHeap (){
+      
+      for(int i=0;i<heapsize/2;i++){
+        if(vett[left(i)]<vett[parent(i)] || vett[right(i)]<vett[parent(i)]){
+          return 0;
         }
-        return false;
+        break;
+      }
+      return 1;    
     }
 
     void print(ofstream &out){
@@ -103,7 +101,7 @@ int main(){
         int tmp; in >> tmp;
         t->enqueue(tmp);
       }
-      t->isHeap(t);
+      t->isHeap();
       t->print(out);
       delete t;
 
@@ -115,7 +113,7 @@ int main(){
         bool tmp; in >> tmp;
         t->enqueue(tmp);
       }
-      t->isHeap(t);
+      t->isHeap();
       t->print(out);
       delete t;
     }
@@ -126,7 +124,7 @@ int main(){
         double tmp; in >> tmp;
         t->enqueue(tmp);
       }
-      t->isHeap(t);
+      t->isHeap();
       t->print(out);
       delete t;
 
@@ -138,7 +136,7 @@ int main(){
         char tmp; in >> tmp;
         t->enqueue(tmp);
       }
-      t->isHeap(t);
+      t->isHeap();
       t->print(out);
       delete t;
     }
