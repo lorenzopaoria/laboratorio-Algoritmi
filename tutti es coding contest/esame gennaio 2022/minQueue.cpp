@@ -68,14 +68,15 @@ public:
     }
 
     bool isHeap (){
-      
-      for(int i=0;i<heapsize/2;i++){
-        if(vett[left(i)]<vett[parent(i)] || vett[right(i)]<vett[parent(i)]){
-          return 0;
+      if(heapsize==1) return true;//se esiste root
+      for(int i=1;i<=heapsize/2;i++){
+        if(right(i)<=heapsize){
+          if(vett[left(i)]<vett[i] || vett[right(i)]<vett[i]){
+            return false;
+          }
         }
-        break;
       }
-      return 1;    
+      return true;    
     }
 
     void print(ofstream &out){
@@ -101,7 +102,8 @@ int main(){
         int tmp; in >> tmp;
         t->enqueue(tmp);
       }
-      t->isHeap();
+      if(t->isHeap()) cout<<"è un heap";
+      else cout<<"non è un heap"<<endl;
       t->print(out);
       delete t;
 
